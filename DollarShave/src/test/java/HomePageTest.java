@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class HomePageTestSuite {
+public class HomePageTest {
 
     static WebDriver driver;
 
@@ -21,11 +21,12 @@ public class HomePageTestSuite {
         new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-//    @Test
-//    public void signInButtonLoadCheck() {
-//        WebElement signInButton = driver.findElement(By.cssSelector("span.menu__title"));
-//        Assert.assertEquals("Sign in button has loaded", "Sign In", signInButton.getText());
-//    }
+    @Test
+    public void signInButtonLoadCheck() {
+        WebElement signInButton = driver.findElement(By.cssSelector("span[class=sr-only] + span[class=menu__title]"));
+
+        Assert.assertEquals("Sign in button has loaded", "Sign In", signInButton.getText());
+    }
 
     @Test
     public void starterSetButtonLoadCheck() {
