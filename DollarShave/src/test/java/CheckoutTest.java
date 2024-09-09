@@ -4,9 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import static org.junit.Assert.assertEquals;
 
@@ -80,13 +78,10 @@ public class CheckoutTest {
     public void dddNavigateToCheckoutPageAndCheckValues() throws InterruptedException {
         WebElement cartCheckoutButton = driver.findElement(By.cssSelector(".rebuy-button.rebuy-cart__checkout-button.block"));
         cartCheckoutButton.click();
-//        new WebDriverWait(driver, Duration.ofSeconds(10));
         Thread.sleep(10000);
         Assert.assertTrue("User is on the Checkout page", driver.getCurrentUrl().contains("checkouts"));
 
         Thread.sleep(10000);
-//        new WebDriverWait(driver, Duration.ofSeconds(10)).
-//                until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.button.button--primary button__cart")));
         WebElement totalPrice = driver.findElement(By.cssSelector("._19gi7yt0._19gi7yt12._1fragemrt._19gi7yt2.notranslate"));
         assertEquals("Price shows $10", "$10.00", totalPrice.getText());
 
