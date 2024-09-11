@@ -30,7 +30,7 @@ public class CheckoutTest {
     }
 
     @Test
-    public void bbbSignIntoAccountTest() throws InterruptedException {
+    public void bbbSignIntoAccountTest() {
         WebElement emailInput = driver.findElement(By.id("CustomerEmail"));
         WebElement passwordInput = driver.findElement(By.id("CustomerPassword"));
         WebElement loginSignInButton = driver.findElement(By.cssSelector("button[type=submit]"));
@@ -44,14 +44,14 @@ public class CheckoutTest {
         new WebDriverWait(driver, Duration.ofSeconds(5));
 
         loginSignInButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitTimer(10000);
 
         WebElement testAccountName = driver.findElement(By.cssSelector("h1.page-header__title.heading--h1"));
         assertEquals("Test account name is Lee Test", "Lee Test", testAccountName.getText());
     }
 
     @Test
-    public void cccAddItemToCart() throws InterruptedException {
+    public void cccAddItemToCart() {
         WebElement headerShaveLink = driver.findElement(By.cssSelector("#shave-label"));
         headerShaveLink.click();
         new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -67,24 +67,35 @@ public class CheckoutTest {
 
         WebElement pdpAddToCartButton = driver.findElement(By.id("add-to-cart-button"));
         pdpAddToCartButton.click();
-        Thread.sleep(5000);
+        waitTimer(5000);
 
-        WebElement noThanksPopUpButton = driver.findElement(By.cssSelector(".rebuy-button.decline"));
-        noThanksPopUpButton.click();
-        Thread.sleep(5000);
+        //Used to click a "No Thanks" button on a popup that asked if the user wanted to
+        //switch their one-time purchase to a subscription purchase
+//        WebElement noThanksPopUpButton = driver.findElement(By.cssSelector(".rebuy-button.decline"));
+//        noThanksPopUpButton.click();
+//        waitTimer(5000);
     }
 
     @Test
-    public void dddNavigateToCheckoutPageAndCheckValues() throws InterruptedException {
+    public void dddNavigateToCheckoutPageAndCheckValues() {
         WebElement cartCheckoutButton = driver.findElement(By.cssSelector(".rebuy-button.rebuy-cart__checkout-button.block"));
         cartCheckoutButton.click();
-        Thread.sleep(10000);
-        Assert.assertTrue("User is on the Checkout page", driver.getCurrentUrl().contains("checkouts"));
+        waitTimer(10000);
 
-        Thread.sleep(10000);
+        Assert.assertTrue("User is on the Checkout page", driver.getCurrentUrl().contains("checkouts"));
+        waitTimer(10000);
+
         WebElement totalPrice = driver.findElement(By.cssSelector("._19gi7yt0._19gi7yt12._1fragemrt._19gi7yt2.notranslate"));
         assertEquals("Price shows $10", "$10.00", totalPrice.getText());
 
+    }
+
+    public void waitTimer(int timeToWait) {
+        try {
+            Thread.sleep(timeToWait);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @AfterClass
