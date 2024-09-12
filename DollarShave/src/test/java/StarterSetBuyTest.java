@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
+import static org.junit.Assert.assertTrue;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class StarterSetBuyTest {
@@ -28,6 +30,18 @@ public class StarterSetBuyTest {
         WebElement starterSetButton = driver.findElement(By.cssSelector("a.button.hero-banner__button "));
         starterSetButton.click();
         waitTimer(5000);
+
+        assertTrue(driver.getCurrentUrl().contains("starter-set"));
+    }
+
+    @Test
+    public void bbbClickJoinTheClubButton() {
+        WebElement joinTheClubButton = driver.findElement(By.cssSelector
+                ("a.button.hero-banner__button.button--large.has-sticky-cta-button.cart-api-add-btn.one-month.redirect-to-checkout-true"));
+        joinTheClubButton.click();
+        waitTimer(7000);
+
+        assertTrue(driver.getCurrentUrl().contains("checkout"));
     }
 
     public void waitTimer(int timeToWait) {
