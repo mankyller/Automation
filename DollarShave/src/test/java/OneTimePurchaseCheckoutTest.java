@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CheckoutTest {
+public class OneTimePurchaseCheckoutTest {
 
     static WebDriver driver;
 
