@@ -22,7 +22,7 @@ public class OneTimePurchaseCheckoutTest {
     }
 
     @Test
-    public void aaaNavigateToSignInTest() {
+    public void aaaNavigateToSignIn() {
         WebElement homePageSignInButton = driver.findElement(By.cssSelector("span[class=sr-only] + span[class=menu__title]"));
         homePageSignInButton.click();
         new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -30,7 +30,7 @@ public class OneTimePurchaseCheckoutTest {
     }
 
     @Test
-    public void bbbSignIntoAccountTest() {
+    public void bbbSignIntoAccount() {
         WebElement emailInput = driver.findElement(By.id("CustomerEmail"));
         WebElement passwordInput = driver.findElement(By.id("CustomerPassword"));
         WebElement loginSignInButton = driver.findElement(By.cssSelector("button[type=submit]"));
