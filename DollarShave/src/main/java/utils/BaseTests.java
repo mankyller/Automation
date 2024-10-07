@@ -1,8 +1,6 @@
 package utils;
 
 import pages.Page;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -15,7 +13,6 @@ public class BaseTests {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver");
     }
 
-    @BeforeClass
     public static void applicationLaunch() {
         setChromeDriverProperty();
         driver = new ChromeDriver();
@@ -23,7 +20,6 @@ public class BaseTests {
         homePage = new Page();
     }
 
-    @AfterClass
     public static void shutdownDriver() {
         driver.close();
         driver.quit();
@@ -31,6 +27,14 @@ public class BaseTests {
 
     public static WebDriver getDriver() {
         return driver;
+    }
+
+    public void waitTimer(int timeToWait) {
+        try {
+            Thread.sleep(timeToWait);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
