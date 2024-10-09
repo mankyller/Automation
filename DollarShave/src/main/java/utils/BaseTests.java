@@ -13,12 +13,14 @@ public class BaseTests {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver");
     }
 
+
     public static void applicationLaunch() {
         setChromeDriverProperty();
         driver = new ChromeDriver();
         driver.navigate().to(Links.HOME);
         homePage = new Page();
     }
+
 
     public static void shutdownDriver() {
         driver.close();
@@ -29,7 +31,7 @@ public class BaseTests {
         return driver;
     }
 
-    public void waitTimer(int timeToWait) {
+    public static void waitTimer(int timeToWait) {
         try {
             Thread.sleep(timeToWait);
         } catch (InterruptedException e) {

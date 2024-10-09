@@ -6,8 +6,8 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.BaseTests;
 
 import java.time.Duration;
 
@@ -19,9 +19,8 @@ public class StorefrontProductsTest {
 
     @BeforeClass
     public static void createDriverSetup() {
-        driver = new ChromeDriver();
-        driver.navigate().to("https://us.dollarshaveclub.com/");
-        new WebDriverWait(driver, Duration.ofSeconds(5));
+        BaseTests.applicationLaunch();
+        new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @Test
@@ -31,18 +30,9 @@ public class StorefrontProductsTest {
 
     }
 
-    public void waitTimer(int timeToWait) {
-        try {
-            Thread.sleep(timeToWait);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @AfterClass
     public static void removeDriver() {
-        driver.close();
-        driver.quit();
+        BaseTests.shutdownDriver();
     }
 
 }

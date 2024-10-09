@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.BaseTests;
+
 import java.time.Duration;
 import static org.junit.Assert.assertEquals;
 
@@ -17,8 +19,7 @@ public class SubscriptionPurchaseCheckoutTest {
 
     @BeforeClass
     public static void createDriverSetup() {
-        driver = new ChromeDriver();
-        driver.navigate().to("https://us.dollarshaveclub.com/");
+        BaseTests.applicationLaunch();
         new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
@@ -45,7 +46,7 @@ public class SubscriptionPurchaseCheckoutTest {
         new WebDriverWait(driver, Duration.ofSeconds(5));
 
         loginSignInButton.click();
-        waitTimer(10000);
+        BaseTests.waitTimer(10000);
 
         WebElement testAccountName = driver.findElement(By.cssSelector("h1.page-header__title.heading--h1"));
         assertEquals("Test account name is Lee Test", "Lee Test", testAccountName.getText());
@@ -68,39 +69,30 @@ public class SubscriptionPurchaseCheckoutTest {
 
         WebElement subscriptionAddToCartButton = driver.findElement(By.id("og-subscription-button"));
         subscriptionAddToCartButton.click();
-        waitTimer(7000);
+        BaseTests.waitTimer(7000);
 
         WebElement pdpAddToCartButton = driver.findElement(By.id("add-to-cart-button"));
         pdpAddToCartButton.click();
-        waitTimer(5000);
+        BaseTests.waitTimer(5000);
     }
 
     @Test
     public void dddNavigateToCheckoutPageAndCheckValues() {
         WebElement cartCheckoutButton = driver.findElement(By.cssSelector(".rebuy-button.rebuy-cart__checkout-button.block"));
         cartCheckoutButton.click();
-        waitTimer(10000);
+        BaseTests.waitTimer(10000);
 
         Assert.assertTrue("User is on the Checkout page", driver.getCurrentUrl().contains("checkouts"));
-        waitTimer(10000);
+        BaseTests.waitTimer(10000);
 
         WebElement totalPrice = driver.findElement(By.cssSelector("_19gi7yt0._19gi7yt10._19gi7ytz._1fragemrs._19gi7yt2.notranslate"));
         assertEquals("Price shows $10", "$10.00", totalPrice.getText());
 
     }
 
-    public void waitTimer(int timeToWait) {
-        try {
-            Thread.sleep(timeToWait);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @AfterClass
     public static void removeDriver() {
-        driver.close();
-        driver.quit();
+        BaseTests.shutdownDriver();
     }
 
 }

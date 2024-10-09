@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import static org.junit.Assert.assertEquals;
+import utils.BaseTests;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -16,8 +17,7 @@ public class OneTimePurchaseCheckoutTest {
 
     @BeforeClass
     public static void createDriverSetup() {
-        driver = new ChromeDriver();
-        driver.navigate().to("https://us.dollarshaveclub.com/");
+        BaseTests.applicationLaunch();
         new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
@@ -44,7 +44,7 @@ public class OneTimePurchaseCheckoutTest {
         new WebDriverWait(driver, Duration.ofSeconds(5));
 
         loginSignInButton.click();
-        waitTimer(10000);
+        BaseTests.waitTimer(10000);
 
         WebElement testAccountName = driver.findElement(By.cssSelector("h1.page-header__title.heading--h1"));
         assertEquals("Test account name is Lee Test", "Lee Test", testAccountName.getText());
@@ -67,7 +67,7 @@ public class OneTimePurchaseCheckoutTest {
 
         WebElement pdpAddToCartButton = driver.findElement(By.id("add-to-cart-button"));
         pdpAddToCartButton.click();
-        waitTimer(5000);
+        BaseTests.waitTimer(5000);
 
         //Used to click a "No Thanks" button on a popup that asked if the user wanted to
         //switch their one-time purchase to a subscription purchase
@@ -80,27 +80,18 @@ public class OneTimePurchaseCheckoutTest {
     public void dddNavigateToCheckoutPageAndCheckValues() {
         WebElement cartCheckoutButton = driver.findElement(By.cssSelector(".rebuy-button.rebuy-cart__checkout-button.block"));
         cartCheckoutButton.click();
-        waitTimer(10000);
+        BaseTests.waitTimer(10000);
 
         Assert.assertTrue("User is on the Checkout page", driver.getCurrentUrl().contains("checkouts"));
-        waitTimer(10000);
+        BaseTests.waitTimer(10000);
 
         WebElement totalPrice = driver.findElement(By.cssSelector("._19gi7yt0._19gi7yt12._1fragemrt._19gi7yt2.notranslate"));
         assertEquals("Price shows $10", "$10.00", totalPrice.getText());
 
     }
 
-    public void waitTimer(int timeToWait) {
-        try {
-            Thread.sleep(timeToWait);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @AfterClass
     public static void removeDriver() {
-        driver.close();
-        driver.quit();
+        BaseTests.shutdownDriver();
     }
 }
